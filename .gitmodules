@@ -1,0 +1,6 @@
+[submodule "PUF_VM"]
+	path = PUF_VM
+	url = git@github.com:crosscon/ZK-PUF-Zephyr-Demo.git
+[submodule "GUEST_VM"]
+	path = GUEST_VM
+	url = git@github.com:crosscon/ZK-PUF-Zephyr-Demo.git
