@@ -46,11 +46,25 @@ endif
 endif
 
 #------------------------------------------------------------
+# Git submodule initialization check
+#------------------------------------------------------------
+
+check-submodules:
+	@echo ">>> Verifying git submodules are initialized…"
+	@missing=$$(git submodule status $(IMAGES) \
+	                | awk '/^-/ { print $$2 }'); \
+	if [ -n "$$missing" ]; then \
+	  echo >&2 "ERROR: these submodules look un­initialized: $$missing"; \
+	  echo >&2 "Run: git submodule update --init --recursive"; \
+	  exit 1; \
+	fi
+
+#------------------------------------------------------------
 # Main invokes
 #------------------------------------------------------------
 # build - build all VM's and Hypervisor with substitutions for VM star address
 # flash - flash all binaries onto the board
-install-deps: global-deps $(patsubst %,install-deps-%,$(ZEPHYR_VMS))
+install-deps: global-deps check-submodules $(patsubst %,install-deps-%,$(ZEPHYR_VMS))
 update: $(patsubst %,update-%,$(ZEPHYR_VMS))
 build: $(patsubst %,build-%,$(ZEPHYR_VMS)) $(patsubst %,substitute_vm_start-%,$(ZEPHYR_VMS)) build-Hypervisor
 flash: $(patsubst %,flash-%,$(ZEPHYR_VMS)) flash-Hypervisor
