@@ -4,3 +4,6 @@
 [submodule "GUEST_VM"]
 	path = GUEST_VM
 	url = git@github.com:crosscon/ZK-PUF-Zephyr-Demo.git
+[submodule "Hypervisor"]
+	path = Hypervisor
+	url = git@github.com:tym2k1/bao-hypervisor.git
