@@ -112,6 +112,7 @@ build-Hypervisor:
 	@echo ">>> Building Hypervisor <<<"
 	@mkdir -p build/Hypervisor/build
 	@mkdir -p build/Hypervisor/bin
+	@ln -snf ../../configs/uc1_1 $(current_directory)/Hypervisor/configs/uc1_1
 	$(MAKE) $(HV_MAKE_FLAGS) -C Hypervisor
 
 build-%:
@@ -125,7 +126,7 @@ build-%:
 #------------------------------------------------------------
 flash-Hypervisor:
 	@echo ">>> Flashing Hypervisor <<<"
-	@LinkServer flash LPC55S69:LPCXpresso55S69 load $(current_directory)/build/Hypervisor/bin/$(HV_PLATFORM)/$(HV_CONFIG)/bao.elf
+	@LinkServer flash LPC55S69:LPCXpresso55S69 load $(current_directory)/build/Hypervisor/bin/$(HV_PLATFORM)/$(HV_CONFIG)/crossconhyp.elf
 
 flash-%:
 	@echo ">>> Flashing Zephyr VM: $* <<<"

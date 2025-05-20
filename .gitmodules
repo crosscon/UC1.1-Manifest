@@ -6,4 +6,4 @@
 	url = git@github.com:crosscon/ZK-PUF-Zephyr-Demo.git
 [submodule "Hypervisor"]
 	path = Hypervisor
-	url = git@github.com:tym2k1/bao-hypervisor.git
+	url = git@github.com:crosscon/CROSSCON-Hypervisor.git
