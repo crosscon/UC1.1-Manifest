@@ -7,14 +7,19 @@ static struct vm_config guest_vm = {
     .platform = {
         .cpu_num    = 1,
         .region_num = 2,
+        .remio_devs = NULL,
+        .mmu = NULL,
+        .arch = { 0 },
         .regions = (struct vm_mem_region[]) {
             { .base = 0x20010000, .size = 0x20000 }, /* SRAM1 */
             { .base = 0x00020000, .size = 0x10000 },
         },
         .dev_num = 4,
+        .remio_dev_num = 0,
         .devs = (struct vm_dev_region[]) {
             {
                 .pa            = 0x40089000, /* USART3 */
+                .id            = 0,
                 .va            = 0x40089000,
                 .size          = 0x1000,
                 .interrupt_num = 1,
@@ -22,16 +27,19 @@ static struct vm_config guest_vm = {
             },
             {
                 .pa   = 0x40000000, /* SYSCON + IOCON + PINT + SPINT */
+                .id   = 0,
                 .va   = 0x40000000,
                 .size = 0x5000,
             },
             {
                 .pa   = 0x40013000, /* ANALOG */
+                .id   = 0,
                 .va   = 0x40013000,
                 .size = 0x1000,
             },
             {
                 .pa   = 0x40020000, /* POWER MGM */
+                .id   = 0,
                 .va   = 0x40020000,
                 .size = 0x1000,
             },
@@ -61,9 +69,14 @@ static struct vm_config puf_vm = {
             { .base = 0x00060000, .size = 0x10000 },
         },
         .dev_num = 4,
+        .remio_dev_num = 0,
+        .remio_devs = NULL,
+        .mmu = NULL,
+        .arch = { 0 },
         .devs = (struct vm_dev_region[]) {
             {
                 .pa            = 0x40088000, /* USART2 */
+                .id            = 0,
                 .va            = 0x40088000,
                 .size          = 0x1000,
                 .interrupt_num = 1,
@@ -71,16 +84,19 @@ static struct vm_config puf_vm = {
             },
             {
                 .pa   = 0x40000000, /* SYSCON + IOCON + PINT + SPINT */
+                .id   = 0,
                 .va   = 0x40000000,
                 .size = 0x5000,
             },
             {
                 .pa   = 0x40013000, /* ANALOG */
+                .id   = 0,
                 .va   = 0x40013000,
                 .size = 0x1000,
             },
             {
                 .pa   = 0x40020000, /* POWER MGM */
+                .id   = 0,
                 .va   = 0x40020000,
                 .size = 0x1000,
             },
