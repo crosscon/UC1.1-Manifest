@@ -62,7 +62,7 @@ static struct vm_config puf_vm = {
             { .base = 0x20030000, .size = 0x20000 }, /* SRAM1 */
             { .base = 0x00060000, .size = 0x10000 },
         },
-        .dev_num = 3,
+        .dev_num = 4,
         .remio_dev_num = 0,
         .remio_devs = NULL,
         .mmu = NULL,
@@ -87,6 +87,14 @@ static struct vm_config puf_vm = {
                 .id   = 0,
                 .va = 0x40013000,
                 .size = 0xE000,
+            },
+            {
+                .pa = 0x4003B000, /* PUF */
+                .id   = 0,
+                .va = 0x4003B000,
+                .size = 0x2000,
+                .interrupt_num = 1,
+                .interrupts    = (irqid_t[]){ 16 + 56 },
             },
         },
         .ipc_num = 1,
