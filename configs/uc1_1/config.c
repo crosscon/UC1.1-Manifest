@@ -14,7 +14,7 @@ static struct vm_config guest_vm = {
             { .base = 0x20010000, .size = 0x20000 }, /* SRAM1 */
             { .base = 0x00020000, .size = 0x10000 },
         },
-        .dev_num = 4,
+        .dev_num = 3,
         .remio_dev_num = 0,
         .devs = (struct vm_dev_region[]) {
             {
@@ -32,16 +32,10 @@ static struct vm_config guest_vm = {
                 .size = 0x5000,
             },
             {
-                .pa   = 0x40013000, /* ANALOG */
+                .pa = 0x40013000, /* ANALOG + POWER MGM */
                 .id   = 0,
-                .va   = 0x40013000,
-                .size = 0x1000,
-            },
-            {
-                .pa   = 0x40020000, /* POWER MGM */
-                .id   = 0,
-                .va   = 0x40020000,
-                .size = 0x1000,
+                .va = 0x40013000,
+                .size = 0xE000,
             },
         },
         .ipc_num = 1,
@@ -68,7 +62,7 @@ static struct vm_config puf_vm = {
             { .base = 0x20030000, .size = 0x20000 }, /* SRAM1 */
             { .base = 0x00060000, .size = 0x10000 },
         },
-        .dev_num = 4,
+        .dev_num = 3,
         .remio_dev_num = 0,
         .remio_devs = NULL,
         .mmu = NULL,
@@ -89,16 +83,10 @@ static struct vm_config puf_vm = {
                 .size = 0x5000,
             },
             {
-                .pa   = 0x40013000, /* ANALOG */
+                .pa = 0x40013000, /* ANALOG + POWER MGM */
                 .id   = 0,
-                .va   = 0x40013000,
-                .size = 0x1000,
-            },
-            {
-                .pa   = 0x40020000, /* POWER MGM */
-                .id   = 0,
-                .va   = 0x40020000,
-                .size = 0x1000,
+                .va = 0x40013000,
+                .size = 0xE000,
             },
         },
         .ipc_num = 1,
