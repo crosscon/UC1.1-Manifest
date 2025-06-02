@@ -100,6 +100,7 @@ update-%:
 #------------------------------------------------------------
 
 substitute_vm_start-%:
+	@ln -snf $(current_directory)/configs/uc1_1 $(current_directory)/Hypervisor/configs/uc1_1
 	@raw_addr=$$( \
 	    readelf -aW build/$*/zephyr/zephyr.elf \
 	      | awk '/__start/ { print $$2 }' \
@@ -114,7 +115,6 @@ build-Hypervisor:
 	@echo ">>> Building Hypervisor <<<"
 	@mkdir -p build/Hypervisor/build
 	@mkdir -p build/Hypervisor/bin
-	@ln -snf ../../configs/uc1_1 $(current_directory)/Hypervisor/configs/uc1_1
 	$(MAKE) $(HV_MAKE_FLAGS) -C Hypervisor
 
 build-%:
