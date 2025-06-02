@@ -56,6 +56,8 @@ check-submodules:
 	if [ -n "$$missing" ]; then \
 	  echo >&2 "ERROR: these submodules look un­initialized: $$missing"; \
 	  echo >&2 "Run: git submodule update --init --recursive"; \
+	  echo >&2 "To use https instead of ssh run:"; \
+	  echo >&2 "git -c url."https://github.com/".insteadOf="git@github.com:" submodule update --init --recursive"; \
 	  exit 1; \
 	fi
 
