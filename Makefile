@@ -70,7 +70,7 @@ update: $(patsubst %,update-%,$(ZEPHYR_VMS)) update-ENROLLMENT_APP
 enroll: build-ENROLLMENT_APP flash-ENROLLMENT_APP get_enrollment_data
 build: $(patsubst %,build-%,$(ZEPHYR_VMS)) substitute_enrollment_data $(patsubst %,substitute_vm_start-%,$(ZEPHYR_VMS)) build-Hypervisor
 flash: $(patsubst %,flash-%,$(ZEPHYR_VMS)) flash-Hypervisor
-all: install-deps update enroll build
+all: install-deps update enroll build flash
 
 #------------------------------------------------------------
 # Dependencies install
