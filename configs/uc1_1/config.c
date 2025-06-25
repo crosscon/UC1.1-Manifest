@@ -60,7 +60,7 @@ static struct vm_config puf_vm = {
         .region_num = 2,
         .regions = (struct vm_mem_region[]) {
             { .base = 0x20030000, .size = 0x20000 }, /* SRAM1 */
-            { .base = 0x00060000, .size = 0x10000 },
+            { .base = 0x00060000, .size = 0x11000 },
         },
         .dev_num = 4,
         .remio_dev_num = 0,

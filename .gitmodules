@@ -7,3 +7,6 @@
 [submodule "Hypervisor"]
 	path = Hypervisor
 	url = git@github.com:crosscon/CROSSCON-Hypervisor.git
+[submodule "ENROLLMENT_APP"]
+	path = ENROLLMENT_APP
+	url = git@github.com:crosscon/ZK-PUF-Zephyr-Demo.git

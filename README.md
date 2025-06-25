@@ -8,6 +8,7 @@ for secure PUF Authentication based on ZK-PUF Scheme.
 - `python3-venv`
 - `make`
 - `LinkServer`
+- `tio` v3.8
 
 ## Building
 
