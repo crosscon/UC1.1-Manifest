@@ -50,6 +50,7 @@ endif
 #------------------------------------------------------------
 
 check-submodules:
+	@echo
 	@echo ">>> Verifying git submodules are initialized…"
 	@missing=$$(git submodule status $(IMAGES) \
 	                | awk '/^-/ { print $$2 }'); \
@@ -90,9 +91,11 @@ install-deps-%:
 #------------------------------------------------------------
 
 update-Hypervisor:
+	@echo
 	@echo ">>> Nothing to be done";
 
 update-%:
+	@echo
 	@echo ">>> Running 'west update' in $*";
 	@cd $* && west update
 
@@ -101,12 +104,14 @@ update-%:
 #------------------------------------------------------------
 
 build-ENROLLMENT_APP:
+	@echo
 	@echo ">>> Building Enrollment App <<<"
 	@mkdir -p build/ENROLLMENT_APP
 	@cd ENROLLMENT_APP && \
 	  west build -p always -b $(BOARD) -d $(current_directory)/build/ENROLLMENT_APP application
 
 flash-ENROLLMENT_APP:
+	@echo
 	@echo ">>> Flashing Enrollment App <<<"
 	@LinkServer flash LPC55S69:LPCXpresso55S69 load $(current_directory)/build/ENROLLMENT_APP/zephyr/zephyr.elf
 
@@ -135,6 +140,7 @@ get_enrollment_data:
 			exit 0; \
 		fi; \
 		\
+		echo; \
 		echo ">>> Attempting to auto-detect CMSIS-DAP serial device..."; \
 		serial_dev=$$( \
 			ls /dev/ttyACM* 2>/dev/null | while read dev; do \
@@ -146,6 +152,7 @@ get_enrollment_data:
 			read -p "Please enter the serial port (e.g. /dev/ttyACM0): " serial_dev; \
 		fi; \
 		echo "Using serial port: $$serial_dev"; \
+		echo; \
 		printf "\033[1;32m>>> Please press reset button on your board <<<\033[0m\n"; \
 		printf "(ctrl-t q to abort)\n"; \
 		tio $$serial_dev --script-file=./scripts/capture_enroll.lua > /dev/null; \
@@ -178,6 +185,7 @@ substitute_vm_start-%:
 	  $(current_directory)/Hypervisor/configs/uc1_1/config.c
 
 substitute_enrollment_data:
+	@echo
 	@echo ">>> Substituting Enrollment Data in PUF_VM <<<"
 	@proceed=true; \
 	if [ ! -f $(current_directory)/build/enrollment_data/activation_code.bin ] || [ ! -f $(current_directory)/build/enrollment_data/intrinsic_key.bin ]; then \
@@ -192,29 +200,36 @@ substitute_enrollment_data:
 		fi; \
 	fi; \
 	if $$proceed; then \
+		echo; \
 		echo ">>> Pre-patch <<<"; \
 		arm-none-eabi-objdump -s -j .activation_code $(current_directory)/build/PUF_VM/zephyr/zephyr.elf; \
 		arm-none-eabi-objcopy -v --update-section .activation_code=$(current_directory)/build/enrollment_data/activation_code.bin \
 			$(current_directory)/build/PUF_VM/zephyr/zephyr.elf; \
+		echo; \
 		echo ">>> Post-patch <<<"; \
 		arm-none-eabi-objdump -s -j .activation_code $(current_directory)/build/PUF_VM/zephyr/zephyr.elf; \
+		echo; \
 		echo ">>> Pre-patch <<<"; \
 		arm-none-eabi-objdump -s -j .key_code $(current_directory)/build/PUF_VM/zephyr/zephyr.elf; \
 		arm-none-eabi-objcopy -v --update-section .key_code=$(current_directory)/build/enrollment_data/intrinsic_key.bin \
 			$(current_directory)/build/PUF_VM/zephyr/zephyr.elf; \
+		echo; \
 		echo ">>> Post-patch <<<"; \
 		arm-none-eabi-objdump -s -j .key_code $(current_directory)/build/PUF_VM/zephyr/zephyr.elf; \
 	else \
+		echo; \
 		echo ">>> Skipping patching steps <<<"; \
 	fi
 
 build-Hypervisor:
+	@echo
 	@echo ">>> Building Hypervisor <<<"
 	@mkdir -p build/Hypervisor/build
 	@mkdir -p build/Hypervisor/bin
 	$(MAKE) $(HV_MAKE_FLAGS) -C Hypervisor
 
 build-%:
+	@echo
 	@echo ">>> Building Zephyr VM: $* <<<"
 	@mkdir -p build/$*
 	@cd $* && \
@@ -224,10 +239,12 @@ build-%:
 # Flash
 #------------------------------------------------------------
 flash-Hypervisor:
+	@echo
 	@echo ">>> Flashing Hypervisor <<<"
 	@LinkServer flash LPC55S69:LPCXpresso55S69 load $(current_directory)/build/Hypervisor/bin/$(HV_PLATFORM)/$(HV_CONFIG)/crossconhyp.elf
 
 flash-%:
+	@echo
 	@echo ">>> Flashing Zephyr VM: $* <<<"
 	@LinkServer flash LPC55S69:LPCXpresso55S69 load $(current_directory)/build/$*/zephyr/zephyr.elf
 
