@@ -3,6 +3,9 @@
 This repository contains instructions on how to build and run a Proof of Concept
 (PoC) Trusted Service for secure PUF Authentication based on the ZK-PUF scheme.
 
+For Trusted service itself, theoretical background and verification please take a
+look at [crosscon/ZK-PUF-Zephyr-Demo](https://github.com/crosscon/ZK-PUF-Zephyr-Demo) (PUF_VM).
+
 ## Requirements
 
 - `python3-venv`
