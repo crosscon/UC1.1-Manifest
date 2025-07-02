@@ -236,12 +236,30 @@ build-%:
 	  west build -p always -b $(BOARD)/ns -d $(current_directory)/build/$* application
 
 #------------------------------------------------------------
+# MCU Secure Provisioning Tool
+#------------------------------------------------------------
+
+provision-docker:
+	@xhost +local:docker
+	@docker build -t secure_provision scripts/mcu_secure_provision/
+	@docker rm -f secure_provision_container 2>/dev/null || true
+	@sh -c '\
+		docker run --rm -d --name secure_provision_container --privileged \
+		-e DISPLAY=$$DISPLAY \
+		-v /tmp/.X11-unix:/tmp/.X11-unix \
+		-v $$(pwd)/build:/work/build \
+		secure_provision tail -f /dev/null; \
+		docker exec -it secure_provision_container securep > /dev/null 2>&1'
+	@docker cp secure_provision_container:/root/secure_provisioning0/bootable_images/crossconhyp.bin /tmp/crossconhyp_signed.bin
+	@xhost -local:docker'
+
+#------------------------------------------------------------
 # Flash
 #------------------------------------------------------------
 flash-Hypervisor:
 	@echo
 	@echo ">>> Flashing Hypervisor <<<"
-	@LinkServer flash LPC55S69:LPCXpresso55S69 load $(current_directory)/build/Hypervisor/bin/$(HV_PLATFORM)/$(HV_CONFIG)/crossconhyp.elf
+	@LinkServer flash LPC55S69:LPCXpresso55S69 load $(current_directory)/build/Hypervisor/bin/$(HV_PLATFORM)/$(HV_CONFIG)/crossconhyp_signed.bin:0x10000000
 
 flash-%:
 	@echo
