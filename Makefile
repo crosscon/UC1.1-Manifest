@@ -121,7 +121,7 @@ get_enrollment_data:
 			echo >&2 "'tio' is not installed or not in PATH."; \
 			read -p "Do you want to use the fallback script (y/n)? " fallback; \
 			[ "$$fallback" = "y" ] || { echo "Aborted."; exit 1; }; \
-			lua scripts/fallback_capture_enroll.lua || { echo "Fallback failed."; exit 1; }; \
+			lua scripts/serial_capture/fallback_capture_enroll.lua || { echo "Fallback failed."; exit 1; }; \
 			mkdir -p build/enrollment_data; \
 			mv -v /tmp/activation_code.* /tmp/intrinsic_key.* $(current_directory)/build/enrollment_data/; \
 			echo "Output moved to build/enrollment_data/"; \
@@ -133,7 +133,7 @@ get_enrollment_data:
 			echo >&2 "'tio' version 3.8 is required, but found $$tio_version."; \
 			read -p "Do you want to use the fallback script (y/n)? " fallback; \
 			[ "$$fallback" = "y" ] || { echo "Aborted."; exit 1; }; \
-			lua scripts/fallback_capture_enroll.lua || { echo "Fallback failed."; exit 1; }; \
+			lua scripts/serial_capture/fallback_capture_enroll.lua || { echo "Fallback failed."; exit 1; }; \
 			mkdir -p build/enrollment_data; \
 			mv -v /tmp/activation_code.* /tmp/intrinsic_key.* $(current_directory)/build/enrollment_data/; \
 			echo "Output moved to build/enrollment_data/"; \
@@ -155,12 +155,12 @@ get_enrollment_data:
 		echo; \
 		printf "\033[1;32m>>> Please press reset button on your board <<<\033[0m\n"; \
 		printf "(ctrl-t q to abort)\n"; \
-		tio $$serial_dev --script-file=./scripts/capture_enroll.lua > /dev/null; \
+		tio $$serial_dev --script-file=./scripts/serial_capture/capture_enroll.lua > /dev/null; \
 		if [ $$? -ne 0 ]; then \
-			echo "'scripts/capture_enroll.lua' script failed."; \
+			echo "'scripts/serial_capture/capture_enroll.lua' script failed."; \
 			read -p "Do you want to use the fallback script (y/n)? " fallback; \
 			[ "$$fallback" = "y" ] || { echo "Aborted."; exit 1; }; \
-			lua scripts/fallback_capture_enroll.lua || { echo "Fallback failed."; exit 1; }; \
+			lua scripts/serial_capture/fallback_capture_enroll.lua || { echo "Fallback failed."; exit 1; }; \
 		fi; \
 		\
 		mkdir -p build/enrollment_data; \
