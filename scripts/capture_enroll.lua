@@ -78,8 +78,8 @@ if not check_size("/tmp/activation_code.bin", 1192) then
     os.exit(1)
 end
 
-if not check_size("/tmp/intrinsic_key.bin", 52) then
-    io.stderr:write("Error: Intrinsic key is not 52 bytes.\n")
+if not check_size("/tmp/intrinsic_key.bin", 148) then
+    io.stderr:write("Error: Intrinsic key is not 148 bytes. Check your PUF_KEY_SIZE value\n")
     os.exit(1)
 end
 
