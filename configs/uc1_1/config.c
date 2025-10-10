@@ -2,8 +2,8 @@
 
 /* VM #1: GUEST_VM */
 static struct vm_config guest_vm = {
-    .image = VM_IMAGE_LOADED(0x00020000, 0x00020000, 0x8000),
-    .entry = 0x00020000, /* @SUBST_ENTRY_ADDR:GUEST_VM */
+    .image = VM_IMAGE_LOADED(0x00020000, 0x00020000, 0x18000),
+    .entry = 0x00025710, /* @SUBST_ENTRY_ADDR:GUEST_VM */
     .platform = {
         .cpu_num    = 1,
         .region_num = 2,
@@ -12,7 +12,7 @@ static struct vm_config guest_vm = {
         .arch = { 0 },
         .regions = (struct vm_mem_region[]) {
             { .base = 0x20010000, .size = 0x20000 }, /* SRAM1 */
-            { .base = 0x00020000, .size = 0x10000 },
+            { .base = 0x00020000, .size = 0x18000 },
         },
         .dev_num = 3,
         .remio_dev_num = 0,
@@ -53,14 +53,14 @@ static struct vm_config guest_vm = {
 
 /* VM #2: PUF_VM */
 static struct vm_config puf_vm = {
-    .image = VM_IMAGE_LOADED(0x00060000, 0x00060000, 0x8000),
-    .entry = 0x00060000, /* @SUBST_ENTRY_ADDR:PUF_VM */
+    .image = VM_IMAGE_LOADED(0x00060000, 0x00060000, 0x18000),
+    .entry = 0x0006322c, /* @SUBST_ENTRY_ADDR:PUF_VM */
     .platform = {
         .cpu_num    = 1,
         .region_num = 2,
         .regions = (struct vm_mem_region[]) {
             { .base = 0x20030000, .size = 0x20000 }, /* SRAM1 */
-            { .base = 0x00060000, .size = 0x11000 },
+            { .base = 0x00060000, .size = 0x18000 },
         },
         .dev_num = 4,
         .remio_dev_num = 0,
