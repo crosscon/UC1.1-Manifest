@@ -15,6 +15,24 @@ look at [crosscon/ZK-PUF-Zephyr-Demo](https://github.com/crosscon/ZK-PUF-Zephyr-
 - `lua`
 - (optional) `tio` **v3.8**
 
+## Workaround for A3 Revision of LPC55S69
+As of now the demo fails to start on `A3` revision of `LPC55s69`, more details
+about the issue
+[here](https://github.com/crosscon/UC1.1-Manifest/issues/2#issuecomment-3027862206).
+To run the project on this revision use the following command **after
+everything has been built and flashed**:
+
+```bash
+lpcbuilder/run.sh bash -c 'scripts/gdb_start.sh'
+```
+
+This command launches `gdb` inside a Docker container, as the NXP LinkServer
+is required for debugging.
+
+> Due to NXP’s software license restrictions, redistribution of
+their binaries and packages is not permitted.
+You must manually provide the respective NXP software components
+for the [Docker image](./lpcbuilder/Dockerfile)
 
 ## All-in-one
 
